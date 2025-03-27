@@ -25,11 +25,12 @@ import campaignSettingRoutes from "./campaignSettingRoutes";
 import announcementRoutes from "./announcementRoutes";
 import chatRoutes from "./chatRoutes";
 import invoiceRoutes from "./invoicesRoutes";
-import subscriptionRoutes from "./subScriptionRoutes";
+import subscriptionRoutes from "./subscription.routes";
 import ticketTagRoutes from "./ticketTagRoutes";
 import filesRoutes from "./filesRoutes";
 import promptRoutes from "./promptRouter";
 import queueIntegrationRoutes from "./queueIntegrationRoutes";
+
 const routes = Router();
 
 routes.use(userRoutes);
@@ -38,7 +39,6 @@ routes.use(settingRoutes);
 routes.use(contactRoutes);
 routes.use(ticketRoutes);
 routes.use(whatsappRoutes);
-routes.use(messageRoutes);
 routes.use(messageRoutes);
 routes.use(whatsappSessionRoutes);
 routes.use(queueRoutes);

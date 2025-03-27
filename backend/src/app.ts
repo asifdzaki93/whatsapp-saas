@@ -10,6 +10,7 @@ import "./database";
 import uploadConfig from "./config/upload";
 import AppError from "./errors/AppError";
 import routes from "./routes";
+import invoiceRoutes from "./routes/invoiceRoutes";
 import { logger } from "./utils/logger";
 import { messageQueue, sendScheduledMessages } from "./queues";
 
@@ -25,7 +26,7 @@ app.set("queues", {
 app.use(
   cors({
     credentials: true,
-    origin: process.env.FRONTEND_URL
+    origin: [process.env.FRONTEND_URL, "http://localhost:3000"]
   })
 );
 app.use(cookieParser());
@@ -33,6 +34,7 @@ app.use(express.json());
 app.use(Sentry.Handlers.requestHandler());
 app.use("/public", express.static(uploadConfig.directory));
 app.use(routes);
+app.use(invoiceRoutes);
 
 app.use(Sentry.Handlers.errorHandler());
 
