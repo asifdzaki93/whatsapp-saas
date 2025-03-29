@@ -26,7 +26,7 @@ app.set("queues", {
 app.use(
   cors({
     credentials: true,
-    origin: [process.env.FRONTEND_URL, "http://localhost:3000"]
+    origin: [process.env.FRONTEND_URL, "http://localhost:3000", "http://localhost:8080", "http://10.0.2.2:8080", "http://192.168.100.164:9003"]
   })
 );
 app.use(cookieParser());
@@ -40,12 +40,12 @@ app.use(Sentry.Handlers.errorHandler());
 
 app.use(async (err: Error, req: Request, res: Response, _: NextFunction) => {
   if (err instanceof AppError) {
-    logger.warn(err);
+    logger.warn("Error aplikasi:", err);
     return res.status(err.statusCode).json({ error: err.message });
   }
 
-  logger.error(err);
-  return res.status(500).json({ error: "Internal server error" });
+  logger.error("Error server internal:", err);
+  return res.status(500).json({ error: "Terjadi kesalahan pada server. Silakan coba lagi nanti." });
 });
 
 export default app;

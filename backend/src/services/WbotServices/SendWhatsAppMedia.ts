@@ -9,6 +9,7 @@ import GetTicketWbot from "../../helpers/GetTicketWbot";
 import Ticket from "../../models/Ticket";
 import mime from "mime-types";
 import formatBody from "../../helpers/Mustache";
+import { logger } from "../../utils/logger";
 
 interface Request {
   media: Express.Multer.File;
@@ -183,8 +184,8 @@ const SendWhatsAppMedia = async ({
     return sentMessage;
   } catch (err) {
     Sentry.captureException(err);
-    console.log(err);
-    throw new AppError("ERR_SENDING_WAPP_MSG");
+    logger.error("Gagal mengirim media WhatsApp:", err);
+    throw new AppError("Gagal mengirim media WhatsApp. Silakan coba lagi.");
   }
 };
 

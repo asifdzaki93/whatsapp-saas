@@ -791,7 +791,7 @@ async function handleLoginStatus(job) {
 
 
 async function handleInvoiceCreate() {
-  logger.info("Iniciando geração de boletos");
+  logger.info("Memulai pembuatan tagihan");
   const job = new CronJob('*/5 * * * * *', async () => {
 
 
@@ -870,7 +870,7 @@ handleCloseTicketsAutomatic()
 handleInvoiceCreate()
 
 export async function startQueueProcess() {
-  logger.info("Iniciando processamento de filas");
+  logger.info("Memulai pemrosesan antrian");
 
   messageQueue.process("SendMessage", handleSendMessage);
 

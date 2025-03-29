@@ -5,6 +5,7 @@ import AppError from "../../errors/AppError";
 import GetTicketWbot from "../../helpers/GetTicketWbot";
 import Message from "../../models/Message";
 import Ticket from "../../models/Ticket";
+import { logger } from "../../utils/logger";
 
 import formatBody from "../../helpers/Mustache";
 
@@ -47,19 +48,17 @@ const SendWhatsAppMessage = async ({
   }
 
   try {
-    const sentMessage = await wbot.sendMessage(number,{
-        text: formatBody(body, ticket.contact)
-      },
-      {
-        ...options
-      }
-    );
+    const sentMessage = await wbot.sendMessage(number, {
+      text: formatBody(body, ticket.contact)
+    }, {
+      ...options
+    });
     await ticket.update({ lastMessage: formatBody(body, ticket.contact) });
     return sentMessage;
   } catch (err) {
     Sentry.captureException(err);
-    console.log(err);
-    throw new AppError("ERR_SENDING_WAPP_MSG");
+    logger.error("Gagal mengirim pesan WhatsApp:", err);
+    throw new AppError("Gagal mengirim pesan WhatsApp. Silakan coba lagi.");
   }
 };
 

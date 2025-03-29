@@ -9,7 +9,8 @@ let io: SocketIO;
 export const initIO = (httpServer: Server): SocketIO => {
   io = new SocketIO(httpServer, {
     cors: {
-      origin: process.env.FRONTEND_URL
+      origin: [process.env.FRONTEND_URL, "http://localhost:3000", "http://localhost:8080", "http://10.0.2.2:8080", "http://192.168.100.164:9003"],
+      credentials: true
     }
   });
 

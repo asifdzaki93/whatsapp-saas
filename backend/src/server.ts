@@ -19,14 +19,14 @@ const server = app.listen(process.env.PORT, async () => {
   Promise.all(allPromises).then(() => {
     startQueueProcess();
   });
-  logger.info(`Server started on port: ${process.env.PORT}`);
+  logger.info(`Server berjalan di port: ${process.env.PORT}`);
 });
 
 cron.schedule("* * * * *", async () => {
 
   try {
     // console.log("Running a job at 01:00 at America/Sao_Paulo timezone")
-    logger.info(`Serviço de transferencia de tickets iniciado`);
+    logger.info(`Layanan transfer tiket dimulai`);
 
     await TransferTicketQueue();
   }

@@ -24,6 +24,13 @@ export const StartWhatsAppSession = async (
     wbotMonitor(wbot, whatsapp, companyId);
   } catch (err) {
     Sentry.captureException(err);
-    logger.error(err);
+    logger.error("Gagal memulai sesi WhatsApp:", err);
+    await whatsapp.update({ status: "ERROR" });
+    
+    const io = getIO();
+    io.emit("whatsappSession", {
+      action: "update",
+      session: whatsapp
+    });
   }
 };
